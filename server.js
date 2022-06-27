@@ -3,6 +3,8 @@ const app = express();
 const { User, Story } = require('./db');
 const path = require('path');
 
+const { createRandomUser } = require("./seed-data");
+
 app.use('/dist', express.static('dist'));
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
@@ -57,14 +59,15 @@ app.get('/api/stories/:id', async(req, res, next)=> {
   }
 });
 
-// app.post('/api/users', async(req, res, next)=> {
-//   try {
-//     res.status(201).send( await User.create({ name: req.body.name, roleId: req.body.role }));
-//   }
-//   catch(ex){
-//     next(ex);
-//   }
-// });
+app.post('/api/users', async(req, res, next)=> {
+  try {
+    const params = createRandomUser();
+    res.status(201).send( await User.create({ params }));
+  }
+  catch(ex){
+    next(ex);
+  }
+});
 
 app.delete('/api/users/:id', async(req, res, next)=> {
   try {

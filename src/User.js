@@ -8,6 +8,8 @@ class User extends Component{
       user: {},
       stories: [] 
     };
+    this.deleteAStory = this.deleteAStory.bind(this);
+
   }
   async componentDidMount(){
     let response = await axios.get(`/api/users/${this.props.userId}`);
@@ -25,8 +27,15 @@ class User extends Component{
       
     }
   }
+  async deleteAStory(story) {
+    await axios.delete(`/api/stories/${story.id}`);
+    const stories = this.state.stories.filter(_story => _story.id !== story.id);
+    this.setState({ stories });
+  }
   render(){
     const { user, stories } = this.state;
+    const { deleteAStory } = this;
+
     return (
       <div>
         Details for { user.name }
@@ -39,10 +48,10 @@ class User extends Component{
               return (
                 <li key={ story.id }>
                   { story.title }
+                  <button onClick={ ()=> deleteAStory(story)}>x</button>
                   <p>
                   { story.body }
                   </p>
-                  <button onClick={ ()=> deleteAStory(story)}>x</button>
                 </li>
 
               );
