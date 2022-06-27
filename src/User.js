@@ -27,7 +27,6 @@ class User extends Component{
   }
   render(){
     const { user, stories } = this.state;
-    console.log(stories);
     return (
       <div>
         Details for { user.name }
@@ -43,6 +42,7 @@ class User extends Component{
                   <p>
                   { story.body }
                   </p>
+                  <button onClick={ ()=> deleteAStory(story)}>x</button>
                 </li>
 
               );
@@ -53,7 +53,5 @@ class User extends Component{
     );
   }
 }
-
-
 
 export default User;
