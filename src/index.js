@@ -13,6 +13,7 @@ class App extends Component{
       userId: ''
     };
     this.deleteAUser = this.deleteAUser.bind(this);
+    this.createAUser = this.createAUser.bind(this);
   }
   async componentDidMount(){
     try {
@@ -36,14 +37,20 @@ class App extends Component{
     const userId = '';
     this.setState({ userId });
   }
+  async createAUser(){
+    const user = await axios.post(`/api/users`);
+    console.log(user);
+    const users = [...this.state.users, user];
+    this.setState({ users });
+  }
   render(){
     const { users, userId } = this.state;
-    const { deleteAUser } = this;
+    const { deleteAUser, createAUser } = this;
     return (
       <div>
         <h1>Acme Writers Group ({ users.length })</h1>
         <main>
-          <Users users = { users } deleteAUser={ deleteAUser } userId={ userId }/>
+          <Users users = { users } deleteAUser={ deleteAUser } createAUser={ createAUser } userId={ userId }/>
           {
             userId ? <User userId={ userId } /> : null
           }

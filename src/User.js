@@ -48,7 +48,11 @@ class User extends Component{
               return (
                 <li key={ story.id }>
                   { story.title }
-                  <button onClick={ ()=> deleteAStory(story)}>x</button>
+                  <br />
+                  <button onClick={ ()=> deleteAStory(story)}>Delete Story</button>
+                  <button onClick={ ()=> deleteAStory(story)}>
+                    { story.favorite ? "Remove from Favorites":"Add to Favorites" }
+                  </button>
                   <p>
                   { story.body }
                   </p>

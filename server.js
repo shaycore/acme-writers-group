@@ -62,8 +62,8 @@ app.get('/api/stories/:id', async(req, res, next)=> {
 
 app.post('/api/users', async(req, res, next)=> {
   try {
-    const params = createRandomUser();
-    res.status(201).send( await User.create({ params }));
+    const newUser = await createRandomUser();
+    res.status(201).send(await User.create(newUser));
   }
   catch(ex){
     next(ex);

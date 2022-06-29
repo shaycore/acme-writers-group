@@ -8,3 +8,11 @@ Before using running this server:
 Start the server locally by running `npm run start:dev`
 
 --------------
+
+TODO:
+1. Ability to Create User
+2. Ability to Delete User
+3. Ability to Create Story
+4. Ability to Delete Story
+5. Ability to Favorite Story
+6. Ability to Unfavorite Story

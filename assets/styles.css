@@ -18,3 +18,10 @@ main > ul {
 .selected a {
     color: cornSilk;
 }
+
+button {
+    border-radius: 25px;
+    background-color: white;
+    color: black;
+    margin: .5rem;
+}
