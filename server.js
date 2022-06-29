@@ -5,6 +5,7 @@ const path = require('path');
 
 const { createRandomUser } = require("./seed-data");
 
+app.use('/assets', express.static('assets'));
 app.use('/dist', express.static('dist'));
 
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
@@ -91,6 +92,10 @@ app.delete('/api/stories/:id', async(req, res, next)=> {
   }
 });
 
+app.use((err, req, res, next)=> {
+  console.log(err);
+    res.status(500).send(err);
+});
 
 const port = process.env.PORT || 3000;
 
