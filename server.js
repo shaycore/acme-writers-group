@@ -3,7 +3,7 @@ const app = express();
 const { User, Story } = require('./db');
 const path = require('path');
 
-const { createRandomUser } = require("./seed-data");
+const { createRandomUser, createRandomStory } = require("./seed-data");
 
 app.use('/assets', express.static('assets'));
 app.use('/dist', express.static('dist'));
@@ -78,6 +78,16 @@ app.delete('/api/users/:id', async(req, res, next)=> {
   }
   catch(ex) {
       next(ex);
+  }
+});
+
+app.post("/api/users/:id/stories", async (req, res, next) => {
+  try {
+    const newStory = await createRandomStory();
+    newStory.userId = req.params.id;
+    res.status(201).send(await Story.create(newStory));
+  } catch (err) {
+    next(err);
   }
 });
 

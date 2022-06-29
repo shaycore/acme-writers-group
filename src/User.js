@@ -9,6 +9,7 @@ class User extends Component{
       stories: [] 
     };
     this.deleteAStory = this.deleteAStory.bind(this);
+    this.createAStory = this.createAStory.bind(this);
 
   }
   async componentDidMount(){
@@ -32,15 +33,21 @@ class User extends Component{
     const stories = this.state.stories.filter(_story => _story.id !== story.id);
     this.setState({ stories });
   }
+  async createAStory(user) {
+    const story = await axios.post(`/api/users/${user.id}/stories`);
+    const stories = [...this.state.stories, story];
+    this.setState({ stories });
+  }
   render(){
     const { user, stories } = this.state;
-    const { deleteAStory } = this;
+    const { deleteAStory, createAStory } = this;
 
     return (
       <div>
         Details for { user.name }
         <p>
           { user.bio }
+          <button onClick={ ()=> createAStory(user)}>Create New Story</button>
         </p>
         <ul>
           {
