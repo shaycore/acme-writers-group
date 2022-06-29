@@ -10,7 +10,7 @@ class User extends Component{
     };
     this.deleteAStory = this.deleteAStory.bind(this);
     this.createAStory = this.createAStory.bind(this);
-
+    this.changeFavStatus = this.changeFavStatus.bind(this);
   }
   async componentDidMount(){
     let response = await axios.get(`/api/users/${this.props.userId}`);
@@ -38,9 +38,12 @@ class User extends Component{
     const stories = [...this.state.stories, story];
     this.setState({ stories });
   }
+  async changeFavStatus(story) {
+    console.log(story.favorite);
+  }
   render(){
     const { user, stories } = this.state;
-    const { deleteAStory, createAStory } = this;
+    const { deleteAStory, createAStory, changeFavStatus } = this;
 
     return (
       <div>
@@ -57,8 +60,8 @@ class User extends Component{
                   { story.title }
                   <br />
                   <button onClick={ ()=> deleteAStory(story)}>Delete Story</button>
-                  <button onClick={ ()=> deleteAStory(story)}>
-                    { story.favorite ? "Remove from Favorites":"Add to Favorites" }
+                  <button onClick={ ()=> changeFavStatus(story)}>
+                    { story.favorite ? `Remove from Favorites`:`Add to Favorites` }
                   </button>
                   <p>
                   { story.body }
